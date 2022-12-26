@@ -9,36 +9,36 @@ import {
 } from "./categorySlice";
 import { CategoriesTable } from "./components/CategoryTable";
 
+const initialOptions = {
+  page: 1,
+  search: "",
+  perPage: 10,
+  rowsPerPage: [10, 25, 50, 100],
+};
+
 export function ListCategory() {
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
-  const [rowsPerPage] = useState([10, 25, 50, 100]);
-  const [search, setSearch] = useState("");
-
-  const options = {
-    perPage,
-    search,
-    page,
-  };
-
+  const [options, setOptions] = useState(initialOptions);
   const { data, isFetching, error } = useGetCategoriesQuery(options);
 
   const [deleteCategory, deleteCategoryStatus] = useDeleteCategoryMutation();
   const { enqueueSnackbar } = useSnackbar();
 
   function handleOnPageChange(page: number) {
-    setPage(page + 1);
+    options.page = page;
+    setOptions({ ...options, page });
   }
 
   function handleOnPageSizeChange(perPage: number) {
-    setPerPage(perPage);
+    options.perPage = perPage;
+    setOptions({ ...options, perPage });
   }
 
   function handleFilterChange(filterModel: GridFilterModel) {
     if (filterModel.quickFilterValues?.length) {
       const search = filterModel.quickFilterValues.join("");
-      setSearch(search);
-    } else setSearch("");
+      options.search = search;
+      setOptions({ ...options, search });
+    } else setOptions({ ...options, search: "" });
   }
 
   async function handleDeleteCategory(id: string) {
@@ -56,7 +56,7 @@ export function ListCategory() {
   }, [deleteCategoryStatus, enqueueSnackbar]);
 
   if (error) {
-    return <Typography>Error fetching categories</Typography>;
+    return <Typography variant="h2">Error fetching categories</Typography>;
   }
 
   return (
@@ -75,8 +75,8 @@ export function ListCategory() {
       <CategoriesTable
         data={data}
         isFetching={isFetching}
-        perPage={perPage}
-        rowsPerPage={rowsPerPage}
+        perPage={options.perPage}
+        rowsPerPage={options.rowsPerPage}
         handleDelete={handleDeleteCategory}
         handleOnPageChange={handleOnPageChange}
         handleOnPageSizeChange={handleOnPageSizeChange}

@@ -1,23 +1,22 @@
 export interface Results {
-  data: Category[];
+  data: CastMember[];
   links: Links;
   meta: Meta;
 }
 
 export interface Result {
-  data: Category;
+  data: CastMember;
   links: Links;
   meta: Meta;
 }
 
-export interface Category {
+export interface CastMember {
   id: string;
   name: string;
-  is_active: boolean;
+  type: number;
   created_at: string;
   updated_at: string | null;
   deleted_at: string | null;
-  description: string | null;
 }
 
 export interface Links {
@@ -37,9 +36,9 @@ export interface Meta {
   total: number;
 }
 
-export interface CategoryParams {
+export interface CastMemberParams {
   page?: number;
   perPage?: number;
   search?: string;
-  isActive?: boolean;
+  type?: number;
 }

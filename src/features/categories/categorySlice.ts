@@ -1,5 +1,3 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
 import {
   CategoryParams,
   Result,
@@ -9,6 +7,18 @@ import {
 import { apiSlice } from "../api/apiSlice";
 
 const endpointUrl = "/categories";
+
+const category: Category = {
+  id: "",
+  name: "",
+  is_active: false,
+  created_at: "2017-09-08T15:25:53Z",
+  updated_at: "2017-09-08T15:25:53Z",
+  deleted_at: "2017-09-08T15:25:53Z",
+  description: null,
+};
+
+export const initialState: Category[] = [category];
 
 function parseQueryParams(params: CategoryParams): string {
   const query = new URLSearchParams();
@@ -37,9 +47,9 @@ function getCategories({ page = 1, perPage = 10, search = "" }) {
   return `${endpointUrl}?${parseQueryParams(params)}`;
 }
 
-function deleteCategoryMutation(category: Category) {
+function deleteCategoryMutation({ id }: { id: string }) {
   return {
-    url: `${endpointUrl}/${category.id}`,
+    url: `${endpointUrl}/${id}`,
     method: "DELETE",
   };
 }
@@ -84,62 +94,6 @@ export const categoriesApiSlice = apiSlice.injectEndpoints({
     }),
   }),
 });
-
-const category: Category = {
-  id: "123",
-  name: "teste_1",
-  is_active: false,
-  created_at: "2017-09-08T15:25:53Z",
-  updated_at: "2017-09-08T15:25:53Z",
-  deleted_at: "2017-09-08T15:25:53Z",
-  description: "teste",
-};
-
-export const initialState = [category];
-
-const categoriesSlice = createSlice({
-  name: "categories",
-  initialState,
-  reducers: {
-    createCategory: (state, action) => {
-      state.push(action.payload);
-    },
-    updateCategory: (state, action) => {
-      const index = state.findIndex(
-        (category) => category.id === action.payload.id
-      );
-      state[index] = action.payload;
-    },
-    deleteCategory: (state, action) => {
-      const index = state.findIndex(
-        (category) => category.id === action.payload.id
-      );
-      state.splice(index, 1);
-    },
-  },
-});
-
-export const selectCategories = (state: RootState) => state.categories;
-export const selectCategoryById = (state: RootState, id: string) => {
-  const category = state.categories.find((category) => category.id === id);
-
-  return (
-    category || {
-      id: "",
-      name: "",
-      is_active: false,
-      created_at: "",
-      updated_at: "",
-      deleted_at: null,
-      description: "",
-    }
-  );
-};
-
-export default categoriesSlice.reducer;
-
-export const { createCategory, updateCategory, deleteCategory } =
-  categoriesSlice.actions;
 
 export const {
   useGetCategoriesQuery,

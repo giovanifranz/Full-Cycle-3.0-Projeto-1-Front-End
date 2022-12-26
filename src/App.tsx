@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Layout } from "./components/Layout";
 import { appTheme } from "./config/theme";
+import { ListCastMembers } from "./features/cast/ListCastMembers";
 import { CreateCategory } from "./features/categories/CreateCategory";
 import { EditCategory } from "./features/categories/EditCategory";
 import { ListCategory } from "./features/categories/ListCategory";
@@ -30,9 +31,17 @@ function App() {
           <Layout>
             <Routes>
               <Route path="/" element={<ListCategory />} />
+
+              {/* Category */}
               <Route path="/categories" element={<ListCategory />} />
               <Route path="/categories/create" element={<CreateCategory />} />
               <Route path="/categories/edit/:id" element={<EditCategory />} />
+
+              {/* Cast member */}
+
+              <Route path="/cast-members" element={<ListCastMembers />} />
+              <Route path="/cast-members/create" element={<CreateCategory />} />
+              <Route path="/cast-members/edit/:id" element={<EditCategory />} />
               <Route
                 path="*"
                 element={
