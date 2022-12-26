@@ -1,13 +1,12 @@
-import { ThemeProvider, Box, Typography } from "@mui/material";
-import React from "react";
+import { Box, ThemeProvider, Typography } from "@mui/material";
+import { SnackbarProvider } from "notistack";
+import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Layout } from "./components/Layout";
 import { appTheme } from "./config/theme";
-import { Routes, Route } from "react-router-dom";
-import { ListCategory } from "./features/categories/ListCategory";
 import { CreateCategory } from "./features/categories/CreateCategory";
 import { EditCategory } from "./features/categories/EditCategory";
-import { SnackbarProvider } from "notistack";
+import { ListCategory } from "./features/categories/ListCategory";
 
 function App() {
   return (
@@ -29,7 +28,6 @@ function App() {
         >
           <Header />
           <Layout>
-            <h1>Welcome to React Router!</h1>
             <Routes>
               <Route path="/" element={<ListCategory />} />
               <Route path="/categories" element={<ListCategory />} />

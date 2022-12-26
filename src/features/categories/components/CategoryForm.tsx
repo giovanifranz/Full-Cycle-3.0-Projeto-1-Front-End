@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import type { ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { Category } from "../categorySlice";
+import type { Category } from "../../../types/Category";
 
 type Props = {
   category: Category;

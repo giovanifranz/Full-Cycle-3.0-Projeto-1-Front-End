@@ -1,7 +1,7 @@
 export interface Results {
-  meta: Meta;
   data: Category[];
   links: Links;
+  meta: Meta;
 }
 
 export interface Result {
@@ -20,21 +20,21 @@ export interface Category {
   description: null | string;
 }
 
-export interface Meta {
-  to: number;
-  from: number;
-  path: string;
-  total: number;
-  per_page: number;
-  last_page: number;
-  current_page: number;
+export interface Links {
+  first: string;
+  last: string;
+  prev: string | null;
+  next: string | null;
 }
 
-interface Links {
-  prev: null | string;
-  next: null | string;
-  last: null | string;
-  first: null | string;
+export interface Meta {
+  current_page: number;
+  from: number;
+  last_page: number;
+  path: string;
+  per_page: number;
+  to: number;
+  total: number;
 }
 
 export interface CategoryParams {
