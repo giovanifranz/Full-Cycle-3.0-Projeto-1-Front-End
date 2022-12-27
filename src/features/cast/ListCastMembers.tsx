@@ -7,16 +7,16 @@ import {
 } from "./castMembersSlice";
 import { Link } from "react-router-dom";
 import { useSnackbar } from "notistack";
-
-const initialOptions = {
-  page: 1,
-  search: "",
-  perPage: 10,
-  rowsPerPage: [10, 25, 50, 100],
-};
+import { CastMembersTable } from "./components/CastMembersTable";
 
 export function ListCastMembers() {
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState({
+    page: 1,
+    search: "",
+    perPage: 10,
+    rowsPerPage: [10, 25, 50, 100],
+  });
+
   const { enqueueSnackbar } = useSnackbar();
   const { data, isFetching, error } = useGetCastMembersQuery(options);
   const [deleteCastMember, deleteCastMemberStatus] =
@@ -28,18 +28,16 @@ export function ListCastMembers() {
 
   function handleOnPageChange(page: number) {
     options.page = page;
-    setOptions({ ...options, page });
+    setOptions({ ...options, page: page + 1 });
   }
 
-  function handeOnPageSizeChange(perPage: number) {
-    options.perPage = perPage;
+  function handleOnPageSizeChange(perPage: number) {
     setOptions({ ...options, perPage });
   }
 
   function handleFilterChange(filterModel: GridFilterModel) {
     if (filterModel.quickFilterValues?.length) {
       const search = filterModel.quickFilterValues.join("");
-      options.search = search;
       setOptions({ ...options, search });
     } else setOptions({ ...options, search: "" });
   }
@@ -73,6 +71,16 @@ export function ListCastMembers() {
           New Cast Member
         </Button>
       </Box>
+      <CastMembersTable
+        data={data}
+        isFetching={isFetching}
+        perPage={options.perPage}
+        rowsPerPage={options.rowsPerPage}
+        handleDelete={handleDeleteCastMember}
+        handleOnPageChange={handleOnPageChange}
+        handleOnPageSizeChange={handleOnPageSizeChange}
+        handleFilterChange={handleFilterChange}
+      />
     </Box>
   );
 }

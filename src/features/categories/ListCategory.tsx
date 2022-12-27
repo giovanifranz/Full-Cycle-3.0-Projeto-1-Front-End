@@ -9,34 +9,30 @@ import {
 } from "./categorySlice";
 import { CategoriesTable } from "./components/CategoryTable";
 
-const initialOptions = {
-  page: 1,
-  search: "",
-  perPage: 10,
-  rowsPerPage: [10, 25, 50, 100],
-};
-
 export function ListCategory() {
-  const [options, setOptions] = useState(initialOptions);
+  const [options, setOptions] = useState({
+    page: 1,
+    search: "",
+    perPage: 10,
+    rowsPerPage: [10, 25, 50, 100],
+  });
+
   const { data, isFetching, error } = useGetCategoriesQuery(options);
 
   const [deleteCategory, deleteCategoryStatus] = useDeleteCategoryMutation();
   const { enqueueSnackbar } = useSnackbar();
 
   function handleOnPageChange(page: number) {
-    options.page = page;
-    setOptions({ ...options, page });
+    setOptions({ ...options, page: page + 1 });
   }
 
   function handleOnPageSizeChange(perPage: number) {
-    options.perPage = perPage;
     setOptions({ ...options, perPage });
   }
 
   function handleFilterChange(filterModel: GridFilterModel) {
     if (filterModel.quickFilterValues?.length) {
       const search = filterModel.quickFilterValues.join("");
-      options.search = search;
       setOptions({ ...options, search });
     } else setOptions({ ...options, search: "" });
   }
