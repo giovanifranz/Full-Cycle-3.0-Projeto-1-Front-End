@@ -22,7 +22,7 @@ type Props = {
   handleDelete: (id: string) => void
 }
 
-export function CastMembersTable({
+function CastMembersTable({
   isFetching,
   perPage,
   data,
@@ -128,3 +128,6 @@ export function CastMembersTable({
     </Box>
   )
 }
+
+export { CastMembersTable }
+export type { Props as CastMembersTableProps }

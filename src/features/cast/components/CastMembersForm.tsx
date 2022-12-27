@@ -22,7 +22,7 @@ type Props = {
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export function CastMembersForm({
+function CastMembersForm({
   castMember,
   isDisabled = false,
   isLoading = false,
@@ -73,9 +73,9 @@ export function CastMembersForm({
                 type="submit"
                 variant="contained"
                 color="secondary"
-                disabled={isDisabled}
+                disabled={isDisabled || isLoading}
               >
-                Save
+                {isLoading ? 'Loading...' : 'Save'}
               </Button>
             </Box>
           </Grid>
@@ -84,3 +84,6 @@ export function CastMembersForm({
     </Box>
   )
 }
+
+export { CastMembersForm }
+export type { Props as CastMembersFormProps }

@@ -22,7 +22,7 @@ type Props = {
   handleDelete: (id: string) => void
 }
 
-export function CategoriesTable({
+function CategoriesTable({
   isFetching,
   perPage,
   data,
@@ -136,3 +136,6 @@ export function CategoriesTable({
     </Box>
   )
 }
+
+export { CategoriesTable }
+export type { Props as CategoriesTableProps }

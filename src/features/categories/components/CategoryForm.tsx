@@ -21,7 +21,7 @@ type Props = {
   handleToggle: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export function CategoryForm({
+function CategoryForm({
   category,
   isDisabled = false,
   isLoading = false,
@@ -82,9 +82,9 @@ export function CategoryForm({
                 type="submit"
                 variant="contained"
                 color="secondary"
-                disabled={isDisabled}
+                disabled={isDisabled || isLoading}
               >
-                Save
+                {isLoading ? 'Loading...' : 'Save'}
               </Button>
             </Box>
           </Grid>
@@ -93,3 +93,6 @@ export function CategoryForm({
     </Box>
   )
 }
+
+export { CategoryForm }
+export type { Props as CategoryFormProps }
