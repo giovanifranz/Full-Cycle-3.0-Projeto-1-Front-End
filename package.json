@@ -26,10 +26,13 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "lint": "eslint src/**/*.{ts,tsx} --max-warnings=0 --fix",
+    "format": "prettier --write src/**/*.{ts,tsx}",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +50,18 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^1.1.3",
+    "eslint": "^8.30.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "npm run format",
+      "npm run lint"
     ]
   }
 }

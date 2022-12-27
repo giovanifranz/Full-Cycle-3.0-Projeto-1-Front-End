@@ -1,4 +1,4 @@
-import MenuIcon from "@mui/icons-material/Menu";
+import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
   Box,
@@ -6,7 +6,7 @@ import {
   IconButton,
   Toolbar,
   Typography,
-} from "@mui/material";
+} from '@mui/material'
 
 export function Header() {
   return (
@@ -29,5 +29,5 @@ export function Header() {
         </Toolbar>
       </AppBar>
     </Box>
-  );
+  )
 }

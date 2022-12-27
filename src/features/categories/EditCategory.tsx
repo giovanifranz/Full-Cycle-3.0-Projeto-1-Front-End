@@ -1,62 +1,54 @@
-import { Box, Paper, Typography } from "@mui/material";
-import { useSnackbar } from "notistack";
-import { ChangeEvent, FormEvent, useEffect } from "react";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { Category } from "../../types/Category";
+import { Box, Paper, Typography } from '@mui/material'
+import { useSnackbar } from 'notistack'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Category } from '../../types/Category'
 import {
+  initialState,
   useGetCategoryQuery,
   useUpdateCategoryMutation,
-} from "./categorySlice";
-import { CategoryForm } from "./components/CategoryForm";
+} from './categorySlice'
+import { CategoryForm } from './components/CategoryForm'
 
 export function EditCategory() {
-  const id = useParams().id || "";
-  const { data: category, isFetching } = useGetCategoryQuery({ id });
+  const id = useParams().id || ''
+  const { data: category, isFetching } = useGetCategoryQuery({ id })
 
-  const [updateCategory, status] = useUpdateCategoryMutation();
-  const [categoryState, setCategoryState] = useState<Category>({
-    id: "",
-    name: "",
-    description: null,
-    is_active: false,
-    created_at: "",
-    updated_at: "",
-    deleted_at: null,
-  });
+  const [updateCategory, status] = useUpdateCategoryMutation()
+  const [categoryState, setCategoryState] = useState<Category>(initialState)
 
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault()
 
-    await updateCategory(categoryState);
+    await updateCategory(categoryState)
   }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setCategoryState({ ...categoryState, [name]: value });
-  };
+    const { name, value } = event.target
+    setCategoryState({ ...categoryState, [name]: value })
+  }
   const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = event.target;
-    setCategoryState({ ...categoryState, [name]: checked });
-  };
+    const { name, checked } = event.target
+    setCategoryState({ ...categoryState, [name]: checked })
+  }
 
   useEffect(() => {
     if (category) {
-      setCategoryState(category.data);
+      setCategoryState(category.data)
     }
-  }, [category]);
+  }, [category])
 
   useEffect(() => {
     if (status.isSuccess) {
-      enqueueSnackbar("Category updated successfully", { variant: "success" });
+      enqueueSnackbar('Category updated successfully', { variant: 'success' })
     }
 
     if (status.isError) {
-      enqueueSnackbar("Category not updated ", { variant: "error" });
+      enqueueSnackbar('Category not updated ', { variant: 'error' })
     }
-  }, [status, enqueueSnackbar]);
+  }, [status, enqueueSnackbar])
 
   return (
     <Box>
@@ -72,9 +64,9 @@ export function EditCategory() {
           handleSubmit={handleSubmit}
           handleToggle={handleToggle}
           isDisabled={status.isLoading}
-          isLoading={isFetching}
+          isLoading={isFetching || status.isLoading}
         />
       </Paper>
     </Box>
-  );
+  )
 }

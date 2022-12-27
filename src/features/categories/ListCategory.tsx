@@ -1,58 +1,58 @@
-import { Box, Button, Typography } from "@mui/material";
-import { GridFilterModel } from "@mui/x-data-grid";
-import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Box, Button, Typography } from '@mui/material'
+import { GridFilterModel } from '@mui/x-data-grid'
+import { useSnackbar } from 'notistack'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   useDeleteCategoryMutation,
   useGetCategoriesQuery,
-} from "./categorySlice";
-import { CategoriesTable } from "./components/CategoryTable";
+} from './categorySlice'
+import { CategoriesTable } from './components/CategoryTable'
 
 export function ListCategory() {
   const [options, setOptions] = useState({
     page: 1,
-    search: "",
+    search: '',
     perPage: 10,
     rowsPerPage: [10, 25, 50, 100],
-  });
+  })
 
-  const { data, isFetching, error } = useGetCategoriesQuery(options);
+  const { data, isFetching, error } = useGetCategoriesQuery(options)
 
-  const [deleteCategory, deleteCategoryStatus] = useDeleteCategoryMutation();
-  const { enqueueSnackbar } = useSnackbar();
+  const [deleteCategory, deleteCategoryStatus] = useDeleteCategoryMutation()
+  const { enqueueSnackbar } = useSnackbar()
 
   function handleOnPageChange(page: number) {
-    setOptions({ ...options, page: page + 1 });
+    setOptions({ ...options, page: page + 1 })
   }
 
   function handleOnPageSizeChange(perPage: number) {
-    setOptions({ ...options, perPage });
+    setOptions({ ...options, perPage })
   }
 
   function handleFilterChange(filterModel: GridFilterModel) {
     if (filterModel.quickFilterValues?.length) {
-      const search = filterModel.quickFilterValues.join("");
-      setOptions({ ...options, search });
-    } else setOptions({ ...options, search: "" });
+      const search = filterModel.quickFilterValues.join('')
+      setOptions({ ...options, search })
+    } else setOptions({ ...options, search: '' })
   }
 
   async function handleDeleteCategory(id: string) {
-    await deleteCategory({ id });
+    await deleteCategory({ id })
   }
 
   useEffect(() => {
     if (deleteCategoryStatus.isSuccess) {
-      enqueueSnackbar("Category deleted successfully", { variant: "success" });
+      enqueueSnackbar('Category deleted successfully', { variant: 'success' })
     }
 
     if (deleteCategoryStatus.error) {
-      enqueueSnackbar("Category not deleted", { variant: "error" });
+      enqueueSnackbar('Category not deleted', { variant: 'error' })
     }
-  }, [deleteCategoryStatus, enqueueSnackbar]);
+  }, [deleteCategoryStatus, enqueueSnackbar])
 
   if (error) {
-    return <Typography variant="h2">Error fetching categories</Typography>;
+    return <Typography variant="h2">Error fetching categories</Typography>
   }
 
   return (
@@ -63,7 +63,7 @@ export function ListCategory() {
           color="secondary"
           component={Link}
           to="/categories/create"
-          style={{ marginBottom: "1rem" }}
+          style={{ marginBottom: '1rem' }}
         >
           New Category
         </Button>
@@ -79,5 +79,5 @@ export function ListCategory() {
         handleFilterChange={handleFilterChange}
       />
     </Box>
-  );
+  )
 }

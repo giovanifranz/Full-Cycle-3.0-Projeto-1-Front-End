@@ -1,26 +1,26 @@
-import { Delete as DeleteIcon } from "@mui/icons-material";
-import { IconButton, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Delete as DeleteIcon } from '@mui/icons-material'
+import { IconButton, Typography } from '@mui/material'
+import { Box } from '@mui/system'
 import type {
   GridColDef,
   GridRenderCellParams,
   GridRowsProp,
-} from "@mui/x-data-grid";
-import { DataGrid, GridFilterModel, GridToolbar } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
-import { Results } from "../../../types/Category";
+} from '@mui/x-data-grid'
+import { DataGrid, GridFilterModel, GridToolbar } from '@mui/x-data-grid'
+import { Link } from 'react-router-dom'
+import { Results } from '../../../types/Category'
 
 type Props = {
-  data?: Results;
-  perPage: number;
-  isFetching: boolean;
-  rowsPerPage?: number[];
+  data?: Results
+  perPage: number
+  isFetching: boolean
+  rowsPerPage?: number[]
 
-  handleOnPageChange: (page: number) => void;
-  handleFilterChange: (filterModel: GridFilterModel) => void;
-  handleOnPageSizeChange: (perPage: number) => void;
-  handleDelete: (id: string) => void;
-};
+  handleOnPageChange: (page: number) => void
+  handleFilterChange: (filterModel: GridFilterModel) => void
+  handleOnPageSizeChange: (perPage: number) => void
+  handleDelete: (id: string) => void
+}
 
 export function CategoriesTable({
   isFetching,
@@ -37,42 +37,42 @@ export function CategoriesTable({
       showQuickFilter: true,
       quickFilterProps: { debounceMs: 500 },
     },
-  };
+  }
 
   const columns: GridColDef[] = [
     {
-      field: "name",
-      headerName: "Name",
+      field: 'name',
+      headerName: 'Name',
       flex: 1,
       renderCell: rendererNameCell,
     },
     {
-      field: "isActive",
-      headerName: "Active",
+      field: 'isActive',
+      headerName: 'Active',
       flex: 1,
-      type: "boolean",
+      type: 'boolean',
       renderCell: renderIsActiveCell,
     },
     {
-      field: "createdAt",
-      headerName: "Created At",
+      field: 'createdAt',
+      headerName: 'Created At',
       flex: 1,
     },
     {
-      field: "id",
-      headerName: "Actions",
-      type: "string",
+      field: 'id',
+      headerName: 'Actions',
+      type: 'string',
       flex: 1,
       renderCell: renderActionsCell,
     },
-  ];
+  ]
 
   function renderIsActiveCell(rowData: GridRenderCellParams) {
     return (
-      <Typography color={rowData.value ? "primary" : "secondary"}>
-        {rowData.value ? "Active" : "Inactive"}
+      <Typography color={rowData.value ? 'primary' : 'secondary'}>
+        {rowData.value ? 'Active' : 'Inactive'}
       </Typography>
-    );
+    )
   }
 
   function renderActionsCell(rowData: GridRenderCellParams) {
@@ -84,35 +84,35 @@ export function CategoriesTable({
       >
         <DeleteIcon />
       </IconButton>
-    );
+    )
   }
 
   function rendererNameCell(rowData: GridRenderCellParams) {
     return (
       <Link
-        style={{ textDecoration: "none" }}
+        style={{ textDecoration: 'none' }}
         to={`/categories/edit/${rowData.id}`}
       >
         <Typography color="primary">{rowData.value}</Typography>
       </Link>
-    );
+    )
   }
 
   function mapDataToGridRows(data: Results) {
-    const { data: categories } = data;
+    const { data: categories } = data
     return categories.map((category) => ({
       id: category.id,
       name: category.name,
       isActive: category.is_active,
-      createdAt: new Date(category.created_at).toLocaleDateString("pt-BR"),
-    }));
+      createdAt: new Date(category.created_at).toLocaleDateString('pt-BR'),
+    }))
   }
 
-  const rows: GridRowsProp = data ? mapDataToGridRows(data) : [];
-  const rowCount = data?.meta.total || 0;
+  const rows: GridRowsProp = data ? mapDataToGridRows(data) : []
+  const rowCount = data?.meta.total || 0
 
   return (
-    <Box sx={{ display: "flex", height: 600 }}>
+    <Box sx={{ display: 'flex', height: 600 }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -134,5 +134,5 @@ export function CategoriesTable({
         checkboxSelection={false}
       />
     </Box>
-  );
+  )
 }
