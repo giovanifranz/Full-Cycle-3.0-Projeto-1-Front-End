@@ -11,11 +11,11 @@ import { CastMembersForm } from './components/CastMembersForm'
 import { Box, Paper, Typography } from '@mui/material'
 import { useParams } from 'react-router-dom'
 
-export function EditCastMember() {
+export function EditCastMembers() {
   const id = useParams().id || ''
   const { enqueueSnackbar } = useSnackbar()
   const { data: castMember, isFetching } = useGetCastMemberQuery({ id })
-  const [castMemberState, setCastMamberState] =
+  const [castMemberState, setCastMemberState] =
     useState<CastMember>(initialState)
 
   const [updateCastMember, status] = useUpdateCastMemberMutation()
@@ -27,12 +27,12 @@ export function EditCastMember() {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
-    setCastMamberState({ ...castMemberState, [name]: value })
+    setCastMemberState({ ...castMemberState, [name]: value })
   }
 
   useEffect(() => {
     if (castMember) {
-      setCastMamberState(castMember.data)
+      setCastMemberState(castMember.data)
     }
   }, [castMember])
 

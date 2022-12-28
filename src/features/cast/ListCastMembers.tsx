@@ -1,12 +1,12 @@
-import { Typography, Box, Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import { GridFilterModel } from '@mui/x-data-grid'
+import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   useDeleteCastMemberMutation,
   useGetCastMembersQuery,
 } from './castMembersSlice'
-import { Link } from 'react-router-dom'
-import { useSnackbar } from 'notistack'
 import { CastMembersTable } from './components/CastMembersTable'
 
 export function ListCastMembers() {

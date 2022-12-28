@@ -4,8 +4,8 @@ import { Route, Routes } from 'react-router-dom'
 import { Header } from './components/Header'
 import { Layout } from './components/Layout'
 import { appTheme } from './config/theme'
-import { CreateCastMembers } from './features/cast/CreateCastMember'
-import { EditCastMember } from './features/cast/EditCastMember'
+import { CreateCastMembers } from './features/cast/CreateCastMembers'
+import { EditCastMembers } from './features/cast/EditCastMembers'
 import { ListCastMembers } from './features/cast/ListCastMembers'
 import { CreateCategory } from './features/categories/CreateCategory'
 import { EditCategory } from './features/categories/EditCategory'
@@ -47,7 +47,7 @@ function App() {
               />
               <Route
                 path="/cast-members/edit/:id"
-                element={<EditCastMember />}
+                element={<EditCastMembers />}
               />
 
               <Route

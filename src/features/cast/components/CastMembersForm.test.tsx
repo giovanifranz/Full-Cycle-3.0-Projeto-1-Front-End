@@ -4,7 +4,7 @@ import { CastMembersForm, CastMembersFormProps } from './CastMembersForm'
 
 const props: CastMembersFormProps = {
   castMember: {
-    id: '1',
+    id: 'f4e082b5-e565-4a91-9ffe-cd0ab8c2752b',
     name: 'Teste',
     type: 1,
     created_at: '2017-09-08T15:25:53Z',
