@@ -6,6 +6,8 @@ import type { ReactElement, PropsWithChildren } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { AppStore, RootState, setupStore } from '../app/store'
+import { ThemeProvider } from '@mui/material'
+import { appTheme } from '../config/theme'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
@@ -18,11 +20,13 @@ export function renderWithProviders(
 ) {
   function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
     return (
-      <BrowserRouter>
-        <SnackbarProvider>
-          <Provider store={store}>{children}</Provider>
-        </SnackbarProvider>
-      </BrowserRouter>
+      <ThemeProvider theme={appTheme}>
+        <BrowserRouter>
+          <SnackbarProvider>
+            <Provider store={store}>{children}</Provider>
+          </SnackbarProvider>
+        </BrowserRouter>
+      </ThemeProvider>
     )
   }
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }

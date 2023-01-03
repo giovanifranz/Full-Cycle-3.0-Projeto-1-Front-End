@@ -1,4 +1,4 @@
-import { Box, ThemeProvider, Typography } from '@mui/material'
+import { Box, ThemeProvider, Typography, CssBaseline } from '@mui/material'
 import { SnackbarProvider } from 'notistack'
 import { Route, Routes } from 'react-router-dom'
 import { Header } from './components/Header'
@@ -14,6 +14,7 @@ import { ListCategory } from './features/categories/ListCategory'
 function App() {
   return (
     <ThemeProvider theme={appTheme}>
+      <CssBaseline />
       <SnackbarProvider
         maxSnack={3}
         autoHideDuration={2000}

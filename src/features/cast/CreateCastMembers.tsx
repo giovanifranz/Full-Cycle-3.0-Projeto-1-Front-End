@@ -8,7 +8,7 @@ import { Box, Paper, Typography } from '@mui/material'
 
 export function CreateCastMembers() {
   const { enqueueSnackbar } = useSnackbar()
-  const [castMemberState, setCastMamberState] =
+  const [castMemberState, setCastMemberState] =
     useState<CastMember>(initialState)
 
   const [createCastMember, status] = useCreateCastMemberMutation()
@@ -20,7 +20,7 @@ export function CreateCastMembers() {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
-    setCastMamberState({ ...castMemberState, [name]: value })
+    setCastMemberState({ ...castMemberState, [name]: value })
   }
 
   useEffect(() => {
