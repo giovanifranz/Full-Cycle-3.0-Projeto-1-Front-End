@@ -3,11 +3,7 @@ import { useSnackbar } from 'notistack'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Category } from '../../types/Category'
-import {
-  initialState,
-  useGetCategoryQuery,
-  useUpdateCategoryMutation,
-} from './categorySlice'
+import { useGetCategoryQuery, useUpdateCategoryMutation } from './categorySlice'
 import { CategoryForm } from './components/CategoryForm'
 
 export function EditCategory() {
@@ -15,7 +11,15 @@ export function EditCategory() {
   const { data: category, isFetching } = useGetCategoryQuery({ id })
 
   const [updateCategory, status] = useUpdateCategoryMutation()
-  const [categoryState, setCategoryState] = useState<Category>(initialState)
+  const [categoryState, setCategoryState] = useState<Category>({
+    id: '',
+    name: '',
+    is_active: false,
+    created_at: '2017-09-08T15:25:53Z',
+    updated_at: '2017-09-08T15:25:53Z',
+    deleted_at: '2017-09-08T15:25:53Z',
+    description: null,
+  })
 
   const { enqueueSnackbar } = useSnackbar()
 

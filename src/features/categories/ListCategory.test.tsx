@@ -125,4 +125,30 @@ describe('ListCategory', () => {
       expect(name).toBeInTheDocument()
     })
   })
+
+  it('should handle Delete Category error', async () => {
+    server.use(
+      rest.delete(
+        `${baseUrl}/categories/9757b801-e049-45b8-99bb-49cff1ea0e7e`,
+        (_, res, ctx) => {
+          return res(ctx.delay(150), ctx.status(500))
+        },
+      ),
+    )
+
+    renderWithProviders(<ListCategory />)
+
+    await waitFor(() => {
+      const name = screen.getByText('Violet')
+      expect(name).toBeInTheDocument()
+    })
+
+    const deleteButton = screen.getAllByTestId('DeleteButton')[0]
+    fireEvent.click(deleteButton)
+
+    await waitFor(() => {
+      const name = screen.getByText('Category not deleted')
+      expect(name).toBeInTheDocument()
+    })
+  })
 })

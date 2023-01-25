@@ -3,13 +3,21 @@ import { useSnackbar } from 'notistack'
 import type { ChangeEvent, FormEvent } from 'react'
 import { useEffect, useState } from 'react'
 import { Category } from '../../types/Category'
-import { initialState, useCreateCategoryMutation } from './categorySlice'
+import { useCreateCategoryMutation } from './categorySlice'
 import { CategoryForm } from './components/CategoryForm'
 
 export function CreateCategory() {
   const { enqueueSnackbar } = useSnackbar()
   const [createCategory, status] = useCreateCategoryMutation()
-  const [categoryState, setCategoryState] = useState<Category>(initialState)
+  const [categoryState, setCategoryState] = useState<Category>({
+    id: '',
+    name: '',
+    is_active: false,
+    created_at: '2017-09-08T15:25:53Z',
+    updated_at: '2017-09-08T15:25:53Z',
+    deleted_at: '2017-09-08T15:25:53Z',
+    description: null,
+  })
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

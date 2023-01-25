@@ -3,16 +3,6 @@ import { apiSlice } from '../api/apiSlice'
 
 const endpointUrl = '/categories'
 
-export const initialState: Category = {
-  id: '',
-  name: '',
-  is_active: false,
-  created_at: '2017-09-08T15:25:53Z',
-  updated_at: '2017-09-08T15:25:53Z',
-  deleted_at: '2017-09-08T15:25:53Z',
-  description: null,
-}
-
 function parseQueryParams(params: CategoryParams): string {
   const query = new URLSearchParams()
 
