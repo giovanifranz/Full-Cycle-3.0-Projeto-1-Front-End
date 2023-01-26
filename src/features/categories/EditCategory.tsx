@@ -50,7 +50,7 @@ export function EditCategory() {
     }
 
     if (status.isError) {
-      enqueueSnackbar('Category not updated ', { variant: 'error' })
+      enqueueSnackbar('Category not updated', { variant: 'error' })
     }
   }, [status, enqueueSnackbar])
 
