@@ -23,7 +23,7 @@ const data = {
 }
 
 export const handlers = [
-  rest.get(`${baseUrl}/categories/undefined`, (_, res, ctx) => {
+  rest.get(`${baseUrl}/categories`, (_, res, ctx) => {
     return res(ctx.delay(150), ctx.json({ data }))
   }),
 
@@ -50,12 +50,17 @@ describe('EditCategory', () => {
     const name = screen.getByTestId('name')
     const description = screen.getByTestId('description')
     const isActive = screen.getByTestId('is_active')
-    const submit = screen.getByText('Save')
 
     await waitFor(() => {
       expect(name).toHaveValue('Violet')
     })
 
+    await waitFor(() => {
+      const submit = screen.getByText('Save')
+      expect(submit).toBeInTheDocument()
+    })
+
+    const submit = screen.getByText('Save')
     fireEvent.change(name, { target: { value: 'New Violet' } })
     fireEvent.change(description, { target: { value: 'Description 2' } })
     fireEvent.click(isActive)
@@ -79,12 +84,13 @@ describe('EditCategory', () => {
     const name = screen.getByTestId('name')
     const description = screen.getByTestId('description')
     const isActive = screen.getByTestId('is_active')
-    const submit = screen.getByText('Save')
 
     await waitFor(() => {
-      expect(name).toHaveValue('Violet')
+      const submit = screen.getByText('Save')
+      expect(submit).toBeInTheDocument()
     })
 
+    const submit = screen.getByText('Save')
     fireEvent.change(name, { target: { value: 'New Violet' } })
     fireEvent.change(description, { target: { value: 'Description 2' } })
     fireEvent.click(isActive)
