@@ -128,4 +128,30 @@ describe('ListCastMembers', () => {
       expect(text).toBeInTheDocument()
     })
   })
+
+  it('should handle Delete Category Error', async () => {
+    server.use(
+      rest.delete(
+        `${baseUrl}/cast_members/19c27aa1-c500-4290-a121-ad0c64fb3717`,
+        (_, res, ctx) => {
+          return res(ctx.status(500))
+        },
+      ),
+    )
+
+    renderWithProviders(<ListCastMembers />)
+
+    await waitFor(() => {
+      const name = screen.getByText('Klocko')
+      expect(name).toBeInTheDocument()
+    })
+
+    const deleteButton = screen.getAllByTestId('DeleteButton')[0]
+    fireEvent.click(deleteButton)
+
+    await waitFor(() => {
+      const text = screen.getByText('Cast Member not deleted')
+      expect(text).toBeInTheDocument()
+    })
+  })
 })
