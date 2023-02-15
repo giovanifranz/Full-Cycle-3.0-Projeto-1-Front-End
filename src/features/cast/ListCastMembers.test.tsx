@@ -28,6 +28,13 @@ export const handlers = [
       ctx.json(castMembersResultPage1),
     )
   }),
+
+  rest.delete(
+    `${baseUrl}/cast_members/19c27aa1-c500-4290-a121-ad0c64fb3717`,
+    (_, res, ctx) => {
+      return res(ctx.delay(150), ctx.status(204))
+    },
+  ),
 ]
 
 const server = setupServer(...handlers)
@@ -102,6 +109,23 @@ describe('ListCastMembers', () => {
     await waitFor(() => {
       const loading = screen.getByRole('progressbar')
       expect(loading).toBeInTheDocument()
+    })
+  })
+
+  it('should handle Delete Category success', async () => {
+    renderWithProviders(<ListCastMembers />)
+
+    await waitFor(() => {
+      const name = screen.getByText('Klocko')
+      expect(name).toBeInTheDocument()
+    })
+
+    const deleteButton = screen.getAllByTestId('DeleteButton')[0]
+    fireEvent.click(deleteButton)
+
+    await waitFor(() => {
+      const text = screen.getByText('Cast Member deleted successfully')
+      expect(text).toBeInTheDocument()
     })
   })
 })
